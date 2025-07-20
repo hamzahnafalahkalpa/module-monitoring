@@ -8,7 +8,7 @@ use Hanafalah\ModuleMonitoring\Contracts;
 class Monitoring extends PackageManagement implements Contracts\Schemas\Monitoring
 {
     protected string $__entity = 'Monitoring';
-    public static $monitoring_model;
+    public $monitoring_model;
 
     protected array $__cache = [
         'index' => [
