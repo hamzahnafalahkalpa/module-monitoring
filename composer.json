@@ -10,13 +10,6 @@
             "Hanafalah\\ModuleMonitoring\\": "src/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Hanafalah\\ModuleMonitoring\\ModuleMonitoringServiceProvider"
-            ]
-        }
-    },
     "authors": [
         {
             "name": "Hamzah",
