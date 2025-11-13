@@ -2,8 +2,6 @@
 
 namespace Hanafalah\ModuleMonitoring\Resources\MonitoringCategory;
 
-use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
-
 class ShowMonitoringCategory extends ViewMonitoringCategory
 {
   /**
@@ -15,8 +13,7 @@ class ShowMonitoringCategory extends ViewMonitoringCategory
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr  = [];
-    $show = $this->resolveNow(new ShowUnicode($this));
-    $arr  = $this->mergeArray(parent::toArray($request),$show,$arr);
+    $arr  = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }

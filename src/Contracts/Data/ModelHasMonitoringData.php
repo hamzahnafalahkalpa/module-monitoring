@@ -2,4 +2,6 @@
 
 namespace Hanafalah\ModuleMonitoring\Contracts\Data;
 
-interface ModelHasMonitoringData {}
+use Spatie\LaravelData\Contracts\BaseData;
+
+interface ModelHasMonitoringData extends BaseData {}

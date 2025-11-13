@@ -27,12 +27,20 @@ return new class extends Migration
     {
         $table_name = $this->__table->getTable();
         if (!$this->isTableExists()) {
-            Schema::create($table_name, function (Blueprint $table) {
+            Schema::create($table_name, function (Blueprint $table) use ($table_name) {
+                $monitoring = app(config('database.models.Monitoring', \Hanafalah\ModuleMonitoring\Models\Monitoring::class));
+                
                 $table->ulid('id')->primary();
-                $table->string('name', 255)->nullable(false);
+                $table->foreignIdFor($monitoring::class)->nullable(false)
+                      ->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+                $table->string('reference_type',50)->nullable(false);
+                $table->string('reference_id',36)->nullable(false);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->unique(['monitoring_id', 'reference_type', 'reference_id'], 
+                               $table_name.'_monitoring_reference_unique');
             });
         }
     }

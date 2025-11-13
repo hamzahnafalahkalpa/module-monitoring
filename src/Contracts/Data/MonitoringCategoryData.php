@@ -2,4 +2,6 @@
 
 namespace Hanafalah\ModuleMonitoring\Contracts\Data;
 
-interface MonitoringCategoryData {}
+use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
+
+interface MonitoringCategoryData extends UnicodeData {}

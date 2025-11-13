@@ -14,8 +14,12 @@ class ViewMonitoringCategory extends ViewUnicode
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $arr = [
+      'id'   => $this->id,
+      'name' => $this->name,
+      'flag' => $this->flag,
+      'label' => $this->label
+    ];
     return $arr;
   }
 }

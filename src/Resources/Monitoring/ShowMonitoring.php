@@ -12,7 +12,9 @@ class ShowMonitoring extends ViewMonitoring
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = [];
+    $arr = [
+      'reference' => $this->prop_reference,
+    ];
     $arr = $this->mergeArray(parent::toArray($request), $arr);
     return $arr;
   }

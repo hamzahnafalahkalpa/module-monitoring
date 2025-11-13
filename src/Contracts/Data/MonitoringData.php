@@ -2,6 +2,6 @@
 
 namespace Hanafalah\ModuleMonitoring\Contracts\Data;
 
-use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
+use Spatie\LaravelData\Contracts\BaseData;
 
-interface MonitoringData extends UnicodeData{}
+interface MonitoringData extends BaseData {}

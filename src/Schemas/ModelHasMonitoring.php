@@ -25,18 +25,25 @@ class ModelHasMonitoring extends BaseModuleMonitoring implements ContractsModelH
     ];
 
     public function prepareStoreModelHasMonitoring(ModelHasMonitoringData $model_has_monitoring_dto): Model{
-        $add = [
-            'name' => $model_has_monitoring_dto->name
-        ];
-        $guard  = ['id' => $model_has_monitoring_dto->id];
-        $create = [$guard, $add];
-        // if (isset($model_has_monitoring_dto->id)){
-        //     $guard  = ['id' => $model_has_monitoring_dto->id];
-        //     $create = [$guard, $add];
-        // }else{
-        //     $create = [$add];
-        // }
+        if (isset($model_has_monitoring_dto->monitoring)){
+            $monitoring = $this->schemaContract('monitoring')->prepareStoreMonitoring($model_has_monitoring_dto->monitoring);
+            $model_has_monitoring_dto->monitoring_id = $monitoring->id;
+        }else{
+            $monitoring = $this->ModelMonitoringModel()->findOrFail($model_has_monitoring_dto->monitoring_id);
+        }
+        $model_has_monitoring_dto->props['prop_monitoring'] = $monitoring->toViewApi()->resolve();
 
+        $add = [
+            'monitoring_id'   => $model_has_monitoring_dto->monitoring_id,
+            'reference_type'  => $model_has_monitoring_dto->reference_type,
+            'reference_id'    => $model_has_monitoring_dto->reference_id
+        ];
+        if (isset($model_has_monitoring_dto->id)){
+            $guard = ['id' => $model_has_monitoring_dto->id];
+            $create = [$guard, $add];
+        }else{
+            $create = [$add];
+        }
         $model_has_monitoring = $this->usingEntity()->updateOrCreate(...$create);
         $this->fillingProps($model_has_monitoring,$model_has_monitoring_dto->props);
         $model_has_monitoring->save();

@@ -34,17 +34,18 @@ return new class extends Migration
                 $table->string('name');
                 $table->foreignIdFor($monitoring_category::class)->nullable()
                       ->index()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->string('flag', 255);
                 $table->string('reference_type', 50);
                 $table->string('reference_id', 36);
-                $table->string('author_type', 50);
-                $table->string('author_id', 36);
-                $table->date('start_date');
-                $table->date('end_date')->nullable();
+                $table->string('author_type', 50)->nullable();
+                $table->string('author_id', 36)->nullable();
+                $table->timestamp('start_date');
+                $table->timestamp('end_date')->nullable();
                 $table->string('status', 50)->nullable();
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->unique(['name', 'reference_type', 'reference_id'], 'monitoring_unique');
             });
         }
     }

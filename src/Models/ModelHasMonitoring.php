@@ -20,15 +20,25 @@ class ModelHasMonitoring extends BaseModel
     protected $primaryKey = 'id';
     public $list = [
         'id',
-        'name',
+        'monitoring_id',
+        'reference_type',
+        'reference_id',
         'props',
     ];
 
     protected $casts = [
-        'name' => 'string'
+        'monitoring_name' => 'string',
+        'monitoring_category_name' => 'string',
+        'monitoring_category_label' => 'string'
     ];
 
-    
+    public function getPropsQuery(): array{
+        return [
+            'monitoring_name' => 'props->prop_monitoring->name',
+            'monitoring_category_name' => 'props->prop_monitoring->prop_monitoring_category->name',
+            'monitoring_category_label' => 'props->prop_monitoring->prop_monitoring_category->label'
+        ];
+    }
 
     public function viewUsingRelation(): array{
         return [];
@@ -46,7 +56,11 @@ class ModelHasMonitoring extends BaseModel
         return ShowModelHasMonitoring::class;
     }
 
-    
+    public function monitoring(){
+        return $this->belongsToModel('Monitoring');
+    }
 
-    
+    public function reference(){
+        return $this->morphTo();
+    }
 }

@@ -14,7 +14,14 @@ class ViewModelHasMonitoring extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = parent::toArray($request);
+    $arr = [
+      'id'   => $this->id,
+      'monitoring_id' => $this->monitoring_id,
+      'monitoring' => $this->prop_monitoring,
+      'reference_type' => $this->reference_type,
+      'reference_id' => $this->reference_id,
+      'reference' => $this->prop_reference
+    ];
     return $arr;
   }
 }
